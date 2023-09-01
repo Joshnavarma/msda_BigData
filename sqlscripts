@@ -1,0 +1,117 @@
+======overall.csv==========
+
+Create table overall(postdate Date,countidindexed Decimal);
+
+copy overall from 's3://covid19jobimpacts/overall.csv' 
+iam_role 'arn:aws:iam::726363585894:role/covidRedShiftRole' 
+csv
+dateformat AS 'DD-MM-YYYY'
+ignoreheader as 1 region 'us-east-2';
+
+select * from overall where postdate> '03-05-2020';
+
+=========job_family.csv===========
+
+create table job_family(postdate Date,
+                       jobfamily varchar(50),
+                       countidindexed Decimal);
+					   
+
+
+
+copy job_family from 's3://covid19jobimpacts/job_family.csv' 
+iam_role 'arn:aws:iam::726363585894:role/covidRedShiftRole' 
+csv
+dateformat AS 'DD-MM-YYYY'
+ignoreheader as 1 region 'us-east-2';
+
+
+select * from job_family where jobfamily like '%Marketing%';
+
+============job_family_role.csv============
+
+create table job_family_role(postdate Date,
+                       jobfamily varchar(50),
+                       role varchar(50),
+                       countidindexed Decimal);
+					   
+
+
+copy job_family_role from 's3://covid19jobimpacts/job_family_role.csv' 
+iam_role 'arn:aws:iam::726363585894:role/covidRedShiftRole' 
+csv
+dateformat AS 'DD-MM-YYYY'
+ignoreheader as 1 region 'us-east-2';
+
+
+select * from job_family_role where countidindexed>1;
+
+
+
+==============industry.csv==================
+
+
+create table industry (
+postdate Date, industry varchar(100), countidindexed decimal
+);
+
+
+copy industry from 's3://covid19jobimpacts/industry.csv' 
+iam_role 'arn:aws:iam::726363585894:role/covidRedShiftRole' 
+csv
+dateformat AS 'DD-MM-YYYY'
+ignoreheader as 1 region 'us-east-2';
+
+
+select * from industry where postdate<'03-05-2020';
+
+
+===============industry_job_family.csv=======================
+
+create table industry_job_family (
+postdate Date, industry varchar(100), jobfamily varchar(100) ,countidindexed decimal
+);
+
+
+copy industry_job_family from 's3://covid19jobimpacts/industry_job_family.csv' 
+iam_role 'arn:aws:iam::726363585894:role/covidRedShiftRole' 
+csv
+dateformat AS 'DD-MM-YYYY'
+ignoreheader as 1 region 'us-east-2';
+
+
+select * from industry_family_job where postdate<'03-05-2020';
+
+
+
+===================geography.csv==============================
+
+create table geography(
+postdate Date, State varchar(50) ,countidindexed decimal
+);
+
+copy geography from 's3://covid19jobimpacts/geography.csv' 
+iam_role 'arn:aws:iam::726363585894:role/covidRedShiftRole' 
+csv
+dateformat AS 'DD-MM-YYYY'
+ignoreheader as 1 region 'us-east-2';
+
+==================geography_industry.csv===================
+
+create table geography_industry(
+postdate Date, State varchar(50) ,Industry varchar(50), countidindexed decimal
+);
+
+copy geography_industry from 's3://covid19jobimpacts/geography_industry.csv' 
+iam_role 'arn:aws:iam::726363585894:role/covidRedShiftRole' 
+csv
+dateformat AS 'DD-MM-YYYY'
+ignoreheader as 1 region 'us-east-2';
+
+
+
+
+
+
+
+
